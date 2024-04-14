@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 
 from beanie import PydanticObjectId
-from pydantic import Field, BaseModel
+from pydantic import BaseModel, Field
 
 from app.models.user import User
 
@@ -18,5 +18,5 @@ class MessageRead(BaseModel):
 
 class MessageCreate(BaseModel):
     message_to: str = Field(...)
-    text: str = Field(..., example='Тестовое сообщение')
+    text: str = Field(..., example="Тестовое сообщение")
     created: Optional[datetime] = Field(default_factory=datetime.utcnow)

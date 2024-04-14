@@ -1,8 +1,8 @@
 from typing import Optional
 
 from beanie import Document
-from fastapi_users_db_beanie import BeanieUserDatabase, BeanieBaseUser
-from pydantic import HttpUrl, Field
+from fastapi_users_db_beanie import BeanieBaseUser, BeanieUserDatabase
+from pydantic import Field, HttpUrl
 
 
 class User(BeanieBaseUser, Document):

@@ -1,8 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from beanie import PydanticObjectId
-from pydantic import Field, BaseModel
+from pydantic import BaseModel, Field
 
 from app.core.user import current_user
 from app.models.user import User

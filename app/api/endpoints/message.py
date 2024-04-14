@@ -4,16 +4,16 @@ from fastapi import APIRouter, Depends
 from fastapi.encoders import jsonable_encoder
 
 from app.api.validator import check_self_message, phone_validator
-from app.core.user import current_user, get_user_manager, UserManager
+from app.core.user import UserManager, current_user, get_user_manager
 from app.crud.message import message_crud
 from app.models.user import User
-from app.schemas.message import MessageRead, MessageCreate
+from app.schemas.message import MessageCreate, MessageRead
 
 router = APIRouter()
 
 
 @router.post(
-    '/create_message_by_phone',
+    "/create_message_by_phone",
     response_model=MessageRead,
     response_model_exclude_none=True,
     dependencies=[Depends(current_user), Depends(get_user_manager)],
@@ -21,9 +21,9 @@ router = APIRouter()
     tags=["messages"],
 )
 async def create_message_by_phone(
-        message: MessageCreate,
-        author: User = Depends(current_user),
-        user_manager: UserManager = Depends(get_user_manager),
+    message: MessageCreate,
+    author: User = Depends(current_user),
+    user_manager: UserManager = Depends(get_user_manager),
 ) -> MessageRead:
     """
     Создания сообщения, Поиск пользователя по номеру телефона.
@@ -38,7 +38,7 @@ async def create_message_by_phone(
 
 
 @router.post(
-    '/create_message_by_username',
+    "/create_message_by_username",
     response_model=MessageRead,
     response_model_exclude_none=True,
     dependencies=[Depends(current_user), Depends(get_user_manager)],
@@ -46,9 +46,9 @@ async def create_message_by_phone(
     tags=["messages"],
 )
 async def create_message_by_username(
-        message: MessageCreate,
-        author: User = Depends(current_user),
-        user_manager: UserManager = Depends(get_user_manager),
+    message: MessageCreate,
+    author: User = Depends(current_user),
+    user_manager: UserManager = Depends(get_user_manager),
 ) -> MessageRead:
     """
     Создание сообщения. Поиск пользователя по username.
@@ -62,16 +62,14 @@ async def create_message_by_username(
 
 
 @router.get(
-    '/get_messages_to_me',
+    "/get_messages_to_me",
     response_model=list[MessageRead],
     response_model_exclude_none=True,
     dependencies=[Depends(current_user)],
     name="Получает все сообщения, адресованные текущему юзеру.",
-    tags=["messages"]
+    tags=["messages"],
 )
-async def get_all_message_to_me(
-        user: User = Depends(current_user)
-) -> list:
+async def get_all_message_to_me(user: User = Depends(current_user)) -> list:
     """Получает все сообщения, адресованные текущему юзеру."""
 
     message = await message_crud.get_all_messages_to_user(user)
@@ -80,15 +78,15 @@ async def get_all_message_to_me(
 
 
 @router.get(
-    '/get_messages_from_me',
+    "/get_messages_from_me",
     response_model=list[MessageRead],
     response_model_exclude_none=True,
     dependencies=[Depends(current_user)],
     name="Получает все сообщения, написанные текущим юзером.",
-    tags=["messages"]
+    tags=["messages"],
 )
 async def get_all_message_from_me(
-        author: User = Depends(current_user)
+    author: User = Depends(current_user),
 ) -> list:
     """Получает все сообщения, написанные текущим юзером."""
 
@@ -96,17 +94,17 @@ async def get_all_message_from_me(
 
 
 @router.get(
-    '/get_messages_between_me_and_user/{user_id}',
+    "/get_messages_between_me_and_user/{user_id}",
     response_model=list[MessageRead],
     response_model_exclude_none=True,
     dependencies=[Depends(current_user), Depends(get_user_manager)],
     name="Получает всю переписку между текущим пользователем и заданным по id.",
-    tags=["messages"]
+    tags=["messages"],
 )
 async def get_all_message_between_me_and_user(
-        me: User = Depends(current_user),
-        user_manager: UserManager = Depends(get_user_manager),
-        user_id: str = None
+    me: User = Depends(current_user),
+    user_manager: UserManager = Depends(get_user_manager),
+    user_id: str = None,
 ):
     """Получает всю переписку между текущим пользователем и заданным по id."""
     user = await user_manager.get(PydanticObjectId(user_id))
@@ -116,16 +114,16 @@ async def get_all_message_between_me_and_user(
 
 
 @router.get(
-    '/{message_id}',
+    "/{message_id}",
     response_model=MessageRead,
     dependencies=[Depends(current_user)],
     response_model_exclude_none=True,
     name="получает сообщение по id",
-    tags=["messages"]
+    tags=["messages"],
 )
 async def get_message(
-        message_id: str,
-        me: User = Depends(current_user),
+    message_id: str,
+    me: User = Depends(current_user),
 ):
     """
     Получает сообщение по id.

@@ -22,13 +22,14 @@ class UserManager(ObjectIDIDMixin, BaseUserManager[User, PydanticObjectId]):
     reset_password_token_secret = settings.secret
     verification_token_secret = settings.secret
 
-    async def on_after_register(self, user: User,
-                                request: Optional[Request] = None):
+    async def on_after_register(
+        self, user: User, request: Optional[Request] = None
+    ):
         print(f"Пользователь {user.email} зарегистрирован.")
 
     async def get_by_phone(self, phone: str) -> User:
         user_collection = database["User"]
-        user = await user_collection.find_one({'phone_number': phone})
+        user = await user_collection.find_one({"phone_number": phone})
         if user is None:
             raise UserNotExists()
 
@@ -36,18 +37,18 @@ class UserManager(ObjectIDIDMixin, BaseUserManager[User, PydanticObjectId]):
 
     async def get_by_username(self, username: str) -> User:
         user_collection = database["User"]
-        user = await user_collection.find_one({'username': username})
+        user = await user_collection.find_one({"username": username})
         if user is None:
             raise UserNotExists()
 
         return User(**user)
 
     async def update(
-            self,
-            user_update: UserUpdate,
-            user: User,
-            safe: bool = False,
-            request: Optional[Request] = None,
+        self,
+        user_update: UserUpdate,
+        user: User,
+        safe: bool = False,
+        request: Optional[Request] = None,
     ) -> User:
         await validation_phone(self, user_update.phone_number)
         if safe:
@@ -67,7 +68,7 @@ bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
 
 
 def get_jwt_strategy() -> JWTStrategy:
-    return JWTStrategy(secret=SECRET, lifetime_seconds=3600)
+    return JWTStrategy(secret=settings.secret, lifetime_seconds=3600)
 
 
 auth_backend = AuthenticationBackend(
