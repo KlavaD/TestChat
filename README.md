@@ -1,15 +1,16 @@
 # Тестовое задание: написать RESTful API простого мессенджера.
-В данном проекте создана API для простого мессенджера. Регистрация пользователя, авторизация, отправка и получение сообщений. 
-Автор - 
+В данном проекте создана API для простого мессенджера. Регистрация пользователя, авторизация, отправка и получение сообщений.
+Автор -
 *   [Клавдия Дунаева](https://www.t.me/klodunaeva)
 
 
-**Инструменты и стек:**- 
+**Инструменты и стек:**-
 * Python 3.11
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [FastAPI-Users](https://fastapi-users.github.io/fastapi-users/10.0/)
 * [MongoDB](https://www.mongodb.com/)
 * [Pydantic](https://docs.pydantic.dev/latest/)
+* [Docker Compose](https://docs.docker.com/compose/)
 
 
 
@@ -65,7 +66,7 @@ SECRET=
 FIRST_SUPERUSER_EMAIL=
 FIRST_SUPERUSER_PASSWORD=
 ```
-Запустите MongoDB в контейнере Docker: 
+Запустите MongoDB в контейнере Docker:
 Перейдите в папку infra и выполните команду:
 ```
 docker compose up -d
