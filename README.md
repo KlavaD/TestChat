@@ -1,11 +1,11 @@
-# Тестовое задание написать RESTful API простого мессенджера.
+# Тестовое задание: написать RESTful API простого мессенджера.
 В данном проекте создана API для простого мессенджера. Регистрация пользователя, авторизация, отправка и получение сообщений. 
 Автор - 
 *   [Клавдия Дунаева](https://www.t.me/klodunaeva)
 
 
 **Инструменты и стек:**- 
-* Python 3.11, 
+* Python 3.11
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [FastAPI-Users](https://fastapi-users.github.io/fastapi-users/10.0/)
 * [MongoDB](https://www.mongodb.com/)
@@ -18,7 +18,7 @@
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-git clone https://github.com/KlavaD/cat_charity_fund.git
+git clone https://github.com/KlavaD/TestChat.git
 ```
 
 ```
